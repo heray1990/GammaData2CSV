@@ -34,19 +34,19 @@ def traverse_files(filePath, outPath, colorTemp, datatype):
             if os.path.splitext(newDir)[1] == ".txt":
                 if colorTemp == "-c":
                     if os.path.splitext(newDir)[0][-17:]=="Cool_AdjGammaData":
-                        sn = os.path.splitext(newDir)[0].split("/")[-1][:-17]
+                        sn = os.path.splitext(newDir)[0].split(os.sep)[-1][:-17]
                         txt_to_csv(newDir, outPath, "Cool", datatype, sn)
                     else:
                         pass
                 elif colorTemp == "-n":
                     if os.path.splitext(newDir)[0][-19:]=="Normal_AdjGammaData":
-                        sn = os.path.splitext(newDir)[0].split("/")[-1][:-19]
+                        sn = os.path.splitext(newDir)[0].split(os.sep)[-1][:-19]
                         txt_to_csv(newDir, outPath, "Normal", datatype, sn)
                     else:
                         pass
                 elif colorTemp == "-w":
                     if os.path.splitext(newDir)[0][-17:]=="Warm_AdjGammaData":
-                        sn = os.path.splitext(newDir)[0].split("/")[-1][:-17]
+                        sn = os.path.splitext(newDir)[0].split(os.sep)[-1][:-17]
                         txt_to_csv(newDir, outPath, "Warm", datatype, sn)
                     else:
                         pass
@@ -66,10 +66,10 @@ def main():
 
     match = [parameter for parameter in ["-c", "-n", "-w", "-o"] if sys.argv[2] in parameter]
     if match:
-        outPath = sys.argv[1] + "/" + OUT_CSV_FILE
+        outPath = os.path.join(sys.argv[1], OUT_CSV_FILE)
         if os.path.isfile(outPath):
             os.remove(outPath)
-        
+
         traverse_files(sys.argv[1], outPath, sys.argv[2], sys.argv[3])
     else:
         print("Please enter a correct colorTemp type.\n-c:cool -n:normal -w:warm -o:origin")
