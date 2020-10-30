@@ -5,6 +5,9 @@ import os
 import csv
 
 OUT_CSV_FILE = "out.csv"
+OUT_CSV_FILE_COOL = "cool.csv"
+OUT_CSV_FILE_NORMAL = "normal.csv"
+OUT_CSV_FILE_WARM = "warm.csv"
 
 def txt_to_csv(filePath, outPath, colorTemp, datatype, sn):
     fin = open(filePath,'rU')
@@ -66,7 +69,14 @@ def main():
 
     match = [parameter for parameter in ["-c", "-n", "-w", "-o"] if sys.argv[2] in parameter]
     if match:
-        outPath = os.path.join(sys.argv[1], OUT_CSV_FILE)
+        if sys.argv[2] == "-c":
+            outPath = os.path.join(sys.argv[1], OUT_CSV_FILE_COOL)
+        elif sys.argv[2] == "-n":
+            outPath = os.path.join(sys.argv[1], OUT_CSV_FILE_NORMAL)
+        elif sys.argv[2] == "-w":
+            outPath = os.path.join(sys.argv[1], OUT_CSV_FILE_WARM)
+        else:
+            outPath = os.path.join(sys.argv[1], OUT_CSV_FILE)
         if os.path.isfile(outPath):
             os.remove(outPath)
 
